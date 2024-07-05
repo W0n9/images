@@ -10,6 +10,11 @@
       "resolved": "ghcr.io/devcontainers/features/node@sha256:6c4f444d8e3eb68594d60ec128bce76a80647edc2b9a94960ca377895855145f",
       "integrity": "sha256:6c4f444d8e3eb68594d60ec128bce76a80647edc2b9a94960ca377895855145f"
     },
+    "ghcr.io/devcontainers/features/nvidia-cuda:1": {
+      "version": "1.1.2",
+      "resolved": "ghcr.io/devcontainers/features/nvidia-cuda@sha256:876f2988480fd98cce3849c9b2602b33922c11a75a35bef995aa4e3441c1d4aa",
+      "integrity": "sha256:876f2988480fd98cce3849c9b2602b33922c11a75a35bef995aa4e3441c1d4aa"
+    },
     "ghcr.io/devcontainers/features/python:1": {
       "version": "1.6.0",
       "resolved": "ghcr.io/devcontainers/features/python@sha256:c56a79099ac16ccfca67b430db41a6b6858ba4eecd9f9bd21b1234814eb220c2",
