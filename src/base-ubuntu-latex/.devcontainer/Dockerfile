@@ -2,10 +2,6 @@ FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
 
 LABEL dev.containers.features="common"
 
-# [Optional] Uncomment this section to install additional OS packages.
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends fonts-noto-cjk libfontconfig1
-
 RUN mkdir -p ~/tmp/texlive \
     && cd ~/tmp/texlive \
     && wget --no-check-certificate https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz \
@@ -20,4 +16,11 @@ RUN latest_texlive_path="$(ls -d /usr/local/texlive/[0-9]* | sort -n | tail -1)/
     && echo "export PATH=\'$latest_texlive_path:\$PATH\'" >> ~/.profile \
     && env PATH=$PATH $latest_texlive_path/tlmgr path add \
     && $latest_texlive_path/tlmgr init-usertree
+
+COPY fonts /usr/share/fonts/chinese
+
+# [Optional] Uncomment this section to install additional OS packages.
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install --no-install-recommends libfontconfig1 \
+    && rm -rf /var/lib/apt/lists/*
 
