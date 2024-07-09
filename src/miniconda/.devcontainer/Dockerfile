@@ -1,18 +1,15 @@
 FROM continuumio/miniconda3 as upstream
 
-# Temporary: Upgrade python packages due to mentioned CVEs
-# They are installed by the base image (continuumio/miniconda3) which does not have the patch.
-RUN conda install \ 
-    # https://github.com/advisories/GHSA-jjg7-2v4v-x38h
-    idna==3.7
+# Verify OS version is expected one
+RUN . /etc/os-release && if [ "${VERSION_CODENAME}" != "bookworm" ]; then exit 1; fi
 
-# Temporary: Upgrade python packages using pip package manager
-# RUN python3 -m pip install --upgrade \
-    # https://github.com/advisories/
-    # package==version
+# Temporary: Upgrade python packages
+COPY ./apply_security_patches.sh /tmp/apply_security_patches.sh
+RUN chmod +x /tmp/apply_security_patches.sh
+RUN /tmp/apply_security_patches.sh
 
 # Reset and copy updated files with updated privs to keep image size down
-FROM mcr.microsoft.com/devcontainers/base:1-bullseye
+FROM mcr.microsoft.com/devcontainers/base:1-bookworm
 
 ARG USERNAME=vscode
 
